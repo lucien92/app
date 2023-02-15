@@ -1,1 +1,5 @@
-{ "name": "my-app", "version": 2, "builds": [ { "src": "index.html", "use": "@vercel/static" } ], "routes": [ { "src": "/(.*)", "dest": "/api/index.html" } ], "env": { "API_URL": "https://api.example.com" }}
+{
+    "rewrites": [
+        { "source": "/(.*)", "destination": "/api/index" }
+    ]
+}
