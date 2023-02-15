@@ -1,5 +1,1 @@
-{
-    "rewrites": [
-        { "source": "/(.*)", "destination": "/api/index" }
-    ]
-}
+{ "version": 2, "builds": [ { "src": "nuxt.config.js", "use": "@nuxtjs/vercel-builder@0.22.1" } ] }

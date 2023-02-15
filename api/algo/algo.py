@@ -113,8 +113,6 @@ def algo(contenance):
     for i in list_index:
         survivor.append(liste_id[i])
 
-    #on veut retrouver l'adresse de la maison en trouvant la valeur de numero et nom_voie correspondant à la ligne ou se trouve le point
-
 
     j = 0
     dic = {}
@@ -134,14 +132,6 @@ def algo(contenance):
     if j== 0:
         pass
 
-    dic2 = {}
-    for num in dic:
-        dic2[num] = dic[num][0]
-        print(dic2)
-    return dic2
+    
+    return dic
 
-# print(f'Dictionnaire avec les numéros de parcelle et les adresses: {dic2}' + '\n') #ce dictionnaire contient les numéros des parcelles faisant la taille demandée et les adresses potentielles des maisons correspondantes
-
-# print("ATTENTION: les adresses ne correspondent pas toujours à la parcelle mais sont topujours des adresses proches géographiquement de la vraie adresse, pour retrouver exactement l'adresse il faut regarder le numéro de parcelle donné par l'algo et voir sur géoportail l'adresse à laquelle il correspond " + '\n')
-
-# print(f'On devrait avoir une proposition de {len(liste_id)} maisons, mais on en a que {len(dic)} numéro de parcelle retrouvé avec des adresses potentielles'+ '\n')
