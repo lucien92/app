@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect
 from flask import url_for
-import sqlite3 as sql
 from api.algo.algo import algo #mettre algo sous forme de classe pour l'utiliser comme fonction
 
 # Initialize the flask application
