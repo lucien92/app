@@ -3,7 +3,6 @@ from shapely.geometry import Polygon, Point
 import geopandas
 import json
 import pandas as pd
-import time 
 
 #on extrait les coordonnées du polygône de la maison de Clamart <3
 
@@ -66,7 +65,6 @@ def algo(contenance):
     list_points = []
     
     j = 0
-    start_time_tot = time.time()
     print(len(L3))
     for polygon in L3:
         #on veut compter le temps qu eprend la boucle for afin de voir si on peut améliorer la complexité
@@ -76,7 +74,6 @@ def algo(contenance):
             if point.within(polygon):
                 list_points.append(tuple((float(longitude[i]), float(latitude[i]))))
                 list_index.append(j-1)
-    print("--- %s seconds ---" % (time.time() - start_time_tot))
     #on veut troiuver les points qui se situent à une distance inférieur à 0.00001 de l'un des polygones extraits
 
     list_point2 = []
