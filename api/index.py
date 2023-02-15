@@ -1,5 +1,3 @@
-import os
-import re
 from flask import Flask, render_template, request, redirect
 from flask import url_for
 import sqlite3 as sql
@@ -13,8 +11,7 @@ app = Flask(__name__, template_folder='templates')
 def result(variable): #opn reprend le nom de la variable qui a été définie dans la fonction survey
      contenance = variable
      result_final = algo(contenance) #OK ça devrait être bon, à tester en attendant et en améliorant le rendu de la page
-     #mettre la fonction qui cherche les adresses ici et ranger le dictionnaire dans une variable que l'on mettre à la place de number
-     print(result_final)
+     
      return render_template('result.html', result=result_final) #voir comment utiliser une variable dans le result.html
 
 
