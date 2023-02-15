@@ -21,6 +21,6 @@ def survey():
         return redirect(url_for('result', variable=result)) #rédirige vers une autre page en faisant passer une variable
 
     # don't need to test request.method == 'GET'
-    return render_template('form.html')
+    return render_template('test.html')
 
 
