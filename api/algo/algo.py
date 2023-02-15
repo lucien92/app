@@ -6,7 +6,7 @@ import pandas as pd
 
 #on extrait les coordonnées du polygône de la maison de Clamart <3
 
-def algo(contenance):
+def polygone(contenance):
 
     contenance = float(contenance)
 
@@ -44,94 +44,98 @@ def algo(contenance):
         polygon = Polygon(L2)
         L3.append(polygon)
     
+    return L3
 
-    adresse_path = "/home/lucien/Documents/app/data/adresses-74.csv"
-    df = pd.read_csv(adresse_path, sep=';', dtype = str)
+    # adresse_path = "/home/lucien/Documents/app/data/adresses-74.csv"
+    # df = pd.read_csv(adresse_path, sep=';', dtype = str)
 
-    #on effectue un tri en enlevant toutes les lignes dont la colonne id ne commence pas par 74281, i.e pas à thonon
+    # #on effectue un tri en enlevant toutes les lignes dont la colonne id ne commence pas par 74281, i.e pas à thonon
 
-    df2 = df[df['id'].str.startswith('74281')]
-    latitude = df['lat']
-    longitude = df['lon']
-    latitude = list(latitude)
-    longitude = list(longitude)
-    #2)On localise les points qui se situent dans ou près des polynômes extraits
+    # df2 = df[df['id'].str.startswith('74281')]
+    # latitude = df['lat']
+    # longitude = df['lon']
+    # latitude = list(latitude)
+    # longitude = list(longitude)
 
-    #on veut transformer la liste de liste en liste de tuples
 
-    #on veut trouver quel point de la liste L appartient aux polygones extraits
 
-    list_index = []
-    list_points = []
+    # #2)On localise les points qui se situent dans ou près des polynômes extraits
+
+    # #on veut transformer la liste de liste en liste de tuples
+
+    # #on veut trouver quel point de la liste L appartient aux polygones extraits
+
+    # list_index = []
+    # list_points = []
     
-    j = 0
-    print(len(L3))
-    for polygon in L3:
-        #on veut compter le temps qu eprend la boucle for afin de voir si on peut améliorer la complexité
-        j += 1
-        for i in range(len(latitude)):
-            point = Point(tuple((float(longitude[i]), float(latitude[i]))))
-            if point.within(polygon):
-                list_points.append(tuple((float(longitude[i]), float(latitude[i]))))
-                list_index.append(j-1)
-    #on veut troiuver les points qui se situent à une distance inférieur à 0.00001 de l'un des polygones extraits
+    # j = 0
+    # print(len(L3))
+    # for polygon in L3:
+    #     #on veut compter le temps qu eprend la boucle for afin de voir si on peut améliorer la complexité
+    #     j += 1
+    #     for i in range(len(latitude)):
+    #         point = Point(tuple((float(longitude[i]), float(latitude[i]))))
+    #         if point.within(polygon):
+    #             list_points.append(tuple((float(longitude[i]), float(latitude[i]))))
+    #             list_index.append(j-1)
+    # #on veut troiuver les points qui se situent à une distance inférieur à 0.00001 de l'un des polygones extraits
 
-    list_point2 = []
-    j = 0
-    for polygon in L3:
-        j += 1
-        for i in range(len(latitude)):
-            #on veut trouver un moyen de perdre en complexité en éliminant les cas où ill est évident que le point est trop loin (prenons comme critère: le centre à plus de 0.001 d'un des coints du polygône)
-            p1_test = (polygon.exterior.coords.xy[0][0], polygon.exterior.coords.xy[1][0]) #on extrait le premier point du  polygône et on le change en tuple
-            p2_test = tuple((float(longitude[i]), float(latitude[i])))
-            dist_test = ((p2_test[0]-p1_test[0])**2 + (p2_test[1]-p1_test[1])**2)**(1/2)
-            if dist_test > 0.001:
-                continue
-            else:
-                t1 = Polygon(polygon)
-                t = geopandas.GeoSeries(t1)
-                t2 = geopandas.GeoSeries([Point(tuple((float(longitude[i]), float(latitude[i]))))])
-                dist = t.distance(t2)
-                dist2 = dist[0]
-                #faisons un algo qui va chercher les points qui se situent à une distance inférieur à 0.0005 de l'un des polygones extraits ou, s'il ne trouve rien, l'annonce, et va chercher le point le plus proche du polygône
-                if dist2 < 0.0005: #Remarque: parfois quand on augmente trop la distance on récupère moins de numéro de parcelle. Avec 0.0005 on récupère 18 sur 18 dans le cas des 110m², mais dans d'autres cas?
+    # list_point2 = []
+    # j = 0
+    # for polygon in L3:
+    #     j += 1
+    #     for i in range(len(latitude)):
+    #         #on veut trouver un moyen de perdre en complexité en éliminant les cas où ill est évident que le point est trop loin (prenons comme critère: le centre à plus de 0.001 d'un des coints du polygône)
+    #         p1_test = (polygon.exterior.coords.xy[0][0], polygon.exterior.coords.xy[1][0]) #on extrait le premier point du  polygône et on le change en tuple
+    #         p2_test = tuple((float(longitude[i]), float(latitude[i])))
+    #         dist_test = ((p2_test[0]-p1_test[0])**2 + (p2_test[1]-p1_test[1])**2)**(1/2)
+    #         if dist_test > 0.001:
+    #             continue
+    #         else:
+    #             t1 = Polygon(polygon)
+    #             t = geopandas.GeoSeries(t1)
+    #             t2 = geopandas.GeoSeries([Point(tuple((float(longitude[i]), float(latitude[i]))))])
+    #             dist = t.distance(t2)
+    #             dist2 = dist[0]
+    #             #faisons un algo qui va chercher les points qui se situent à une distance inférieur à 0.0005 de l'un des polygones extraits ou, s'il ne trouve rien, l'annonce, et va chercher le point le plus proche du polygône
+    #             if dist2 < 0.0005: #Remarque: parfois quand on augmente trop la distance on récupère moins de numéro de parcelle. Avec 0.0005 on récupère 18 sur 18 dans le cas des 110m², mais dans d'autres cas?
                     
-                    list_point2.append(tuple((float(longitude[i]), float(latitude[i]))))
-                    list_index.append(j-1)
+    #                 list_point2.append(tuple((float(longitude[i]), float(latitude[i]))))
+    #                 list_index.append(j-1)
 
 
-    #on ajoute list_point2 à list_points 
+    # #on ajoute list_point2 à list_points 
 
-    for point in list_point2:
-        if point not in list_points:
-            list_points.append(point)
-
-
-    #3)Maintenant on récupère les adresses des points localisés
-
-    survivor = []       
-    for i in list_index:
-        survivor.append(liste_id[i])
+    # for point in list_point2:
+    #     if point not in list_points:
+    #         list_points.append(point)
 
 
-    j = 0
-    dic = {}
-    for i, points in enumerate(list_points):
-        j += 1
-        lon = points[0]
-        lat = points[1]
-        df2 = df.loc[(df["lon"] == str(lon)) & (df["lat"] == str(lat)), ["numero", "nom_voie"]] #manière claire de sélectionner des lignes et colonnes selon une liste de conditions séparées par des &
-        numero = df2["numero"].values[0]
-        nom_voie = df2["nom_voie"].values[0]
-        if survivor[i][-4:] not in list(dic.keys()):
-            dic[survivor[i][-4:]] = [(numero, nom_voie)]
-        else:
-            if (numero, nom_voie) not in dic[survivor[i][-4:]]:
-                dic[survivor[i][-4:]].append((numero, nom_voie))
+    # #3)Maintenant on récupère les adresses des points localisés
 
-    if j== 0:
-        pass
+    # survivor = []       
+    # for i in list_index:
+    #     survivor.append(liste_id[i])
+
+
+    # j = 0
+    # dic = {}
+    # for i, points in enumerate(list_points):
+    #     j += 1
+    #     lon = points[0]
+    #     lat = points[1]
+    #     df2 = df.loc[(df["lon"] == str(lon)) & (df["lat"] == str(lat)), ["numero", "nom_voie"]] #manière claire de sélectionner des lignes et colonnes selon une liste de conditions séparées par des &
+    #     numero = df2["numero"].values[0]
+    #     nom_voie = df2["nom_voie"].values[0]
+    #     if survivor[i][-4:] not in list(dic.keys()):
+    #         dic[survivor[i][-4:]] = [(numero, nom_voie)]
+    #     else:
+    #         if (numero, nom_voie) not in dic[survivor[i][-4:]]:
+    #             dic[survivor[i][-4:]].append((numero, nom_voie))
+
+    # if j== 0:
+    #     pass
 
     
-    return dic
+    # return dic
 
