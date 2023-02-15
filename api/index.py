@@ -3,9 +3,12 @@ from flask import url_for
 from api.algo.algo import algo #mettre algo sous forme de classe pour l'utiliser comme fonction
 
 # Initialize the flask application
-app = Flask(__name__, template_folder='templates')
+app = Flask(__name__)
 
-
+@app.route('/')
+def survey():
+    return 'Hello, world'
+    
 @app.route('/result/<variable>') #attention il faut bien mettre à la fin du chemin <variabnle> pour que la fonction result puisse récupérer le nom de la variable mis dans le redirect
 def result(variable): #opn reprend le nom de la variable qui a été définie dans la fonction survey
      contenance = variable
@@ -23,7 +26,5 @@ def result(variable): #opn reprend le nom de la variable qui a été définie da
 #     # don't need to test request.method == 'GET'
 #     return render_template('test.html')
 
-@app.route('/')
-def survey():
-    return 'Hello, world'
+
 
