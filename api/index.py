@@ -14,13 +14,16 @@ def result(variable): #opn reprend le nom de la variable qui a été définie da
      return render_template('result.html', result=result_final) #voir comment utiliser une variable dans le result.html
 
 
-@app.route('/', methods=["GET", "POST"])
+# @app.route('/', methods=["GET", "POST"])
+# def survey():
+#     if request.method == 'POST':
+#         result = request.form['number'] #permet de récupérer le résultat du formulaire
+#         return redirect(url_for('result', variable=result)) #rédirige vers une autre page en faisant passer une variable
+
+#     # don't need to test request.method == 'GET'
+#     return render_template('test.html')
+
+@app.route('/')
 def survey():
-    if request.method == 'POST':
-        result = request.form['number'] #permet de récupérer le résultat du formulaire
-        return redirect(url_for('result', variable=result)) #rédirige vers une autre page en faisant passer une variable
-
-    # don't need to test request.method == 'GET'
-    return render_template('test.html')
-
+    return 'Hello, world'
 
