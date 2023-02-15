@@ -1,5 +1,4 @@
 Flask 
-sqlite3
 shapely
 pandas
 time
