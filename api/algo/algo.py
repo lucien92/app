@@ -3,7 +3,6 @@ from shapely.geometry import Polygon, Point
 import json
 # import pandas as pd
 #import geopandas
-#on extrait les coordonnées du polygône de la maison de Clamart <3
 def algo(contenance):
     dic_final = {}
     for treshold in [0.0001,0.0002, 0.0003, 0.0004, 0.00005]:

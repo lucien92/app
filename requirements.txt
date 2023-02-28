@@ -1,4 +1,2 @@
 Flask 
 shapely
-pandas
-geopandas
