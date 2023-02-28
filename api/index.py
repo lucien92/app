@@ -1,9 +1,12 @@
 from flask import Flask, render_template, request, redirect
 from flask import url_for
-from algo.algo import algo #mettre algo sous forme de classe pour l'utiliser comme fonction
+#from algo.algo import algo #mettre algo sous forme de classe pour l'utiliser comme fonction
 
 # Initialize the flask application
 app = Flask(__name__, template_folder='templates')
+
+def algo(contenance):
+    return contenance +1
 
 
 @app.route('/result/<variable>') #attention il faut bien mettre à la fin du chemin <variabnle> pour que la fonction result puisse récupérer le nom de la variable mis dans le redirect
