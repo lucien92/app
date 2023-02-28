@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from flask import url_for
-from api.algo.algo import algo #mettre algo sous forme de classe pour l'utiliser comme fonction
+from algo.algo import algo #mettre algo sous forme de classe pour l'utiliser comme fonction
 
 # Initialize the flask application
 app = Flask(__name__, template_folder='templates')
