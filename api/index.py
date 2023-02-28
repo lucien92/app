@@ -9,6 +9,8 @@ app = Flask(__name__, template_folder='templates')
 @app.route('/result/<variable>') #attention il faut bien mettre à la fin du chemin <variabnle> pour que la fonction result puisse récupérer le nom de la variable mis dans le redirect
 def result(variable): #opn reprend le nom de la variable qui a été définie dans la fonction survey
      contenance = variable
+     contenance = int(contenance)
+     print(type(contenance))
      result_final = algo(contenance) #OK ça devrait être bon, à tester en attendant et en améliorant le rendu de la page
      
      return render_template('result.html', result=result_final) #voir comment utiliser une variable dans le result.html
@@ -24,3 +26,7 @@ def survey():
     return render_template('form.html')
 
 
+# #on veut tester en local
+
+# if __name__ == '__main__':
+#     app.run(debug=True)
